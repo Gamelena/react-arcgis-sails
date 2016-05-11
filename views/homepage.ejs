@@ -1,6 +1,13 @@
 <script>
   var map;
-  require(["esri/map", "esri/dijit/Search", "dojo/domReady!"], function(Map, Search) {
+  var graphic;
+  var currLocation;
+  var watchId;
+  require([
+    "esri/map", "esri/dijit/Search", "esri/geometry/Point", "esri/graphic",
+    "esri/symbols/SimpleMarkerSymbol", "esri/symbols/SimpleLineSymbol", "esri/Color", "dojo/domReady!"
+  ], function(Map, Search, Point, Graphic,
+              SimpleMarkerSymbol, SimpleLineSymbol, Color) {
     map = new Map("map", {
       center: [-56.049, 38.485],
       zoom: 3,
@@ -10,7 +17,61 @@
     var search = new Search({
       map: map
     }, "search");
+
     search.startup();
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(zoomToLocation, locationError);
+        watchId = navigator.geolocation.watchPosition(showLocation, locationError);
+    } else {
+        console.error("Geolocation Not Supported");
+        return false;
+    }
+
+    function locationError(error){
+      switch(error.code){
+        case error.PERMISSION_DENIED: console.error("Location not provided");
+          break;
+        case error.POSITION_UNAVAILABLE:  console.error("Current location not available");
+          break;
+        case error.TIMEOUT:  console.error("Timeout");
+          break;
+        default: alert("unknown error");
+          break;
+      }
+    }
+
+    function zoomToLocation(location) {
+      var pt = new Point(location.coords.longitude, location.coords.latitude);
+      addGraphic(pt);
+      map.centerAndZoom(pt, 15);
+    }
+
+    function showLocation(location) {
+      //zoom to the users location and add a graphic
+      var pt = new Point(location.coords.longitude, location.coords.latitude);
+      if ( !graphic ) {
+        addGraphic(pt);
+      } else { // move the graphic if it already exists
+        graphic.setGeometry(pt);
+      }
+      map.centerAt(pt);
+    }
+
+    function addGraphic(pt){
+      var symbol = new SimpleMarkerSymbol(
+              SimpleMarkerSymbol.STYLE_CIRCLE,
+              12,
+              new SimpleLineSymbol(
+                      SimpleLineSymbol.STYLE_SOLID,
+                      new Color([210, 105, 30, 0.5]),
+                      8
+              ),
+              new Color([210, 105, 30, 0.9])
+      );
+      graphic = new Graphic(pt, symbol);
+      map.graphics.add(graphic);
+    }
   });
 </script>
 <div id="search"></div>
