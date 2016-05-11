@@ -1,0 +1,30 @@
+{
+  "name": "blood-donors",
+  "description": "single page blood donation management system",
+  "main": "app.js",
+  "authors": [
+    "Rodrigo Riquelme <rodrigo.riquelme.e@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "arcgis",
+    "sails"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "^15.0.2",
+    "esri": "arcgis-js-api#3.16.0"
+  },
+  "resolutions": {
+    "dojo": "v1.10.4/esri-3.14.0"
+  }
+
+}
