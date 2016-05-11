@@ -26,12 +26,6 @@
         + Use a different preprocessor, like TypeScript
 
   -->
-    <script src="/js/dependencies/sails.io.js"></script>
-    <script src="bower_components/react/react.js"></script>
-    <script src="bower_components/react/react-dom.js"></script>
-    <script src="bower_components/react-bootstrap/react-bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
-
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
 
@@ -39,11 +33,27 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="https://js.arcgis.com/3.16/esri/themes/calcite/dijit/calcite.css">
     <link rel="stylesheet" href="https://js.arcgis.com/3.16/esri/css/esri.css">
-    <script src="https://js.arcgis.com/3.16/"></script>
+    <script src="/js/dependencies/sails.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
     <script>
         var base_url = "<%=sails.getBaseUrl()%>";
-        dojo.registerModulePath("donnors", base_url + "/js/donnors");
+        var dojoConfig = {
+            parseOnLoad: false,
+            async: true,
+            cacheBust: '0.1.0',
+            packages: [
+                { name: 'donnors', location: base_url + '/js/donnors' },
+                { name: 'bower_components', location: base_url + '/bower_components' }
+            ],
+            aliases: [
+                ['react', 'bower_components/react/react.min'],
+                ['react-dom', 'bower_components/react/react-dom.min'],
+                ['react-bootstrap', 'bower_components/react-bootstrap/react-bootstrap.min']
+            ],
+            deps: ['dojo/domReady!'],
+        };
     </script>
+    <script src="https://js.arcgis.com/3.16/" ></script>
     <!--
     Stylesheets and Preprocessors
     ==============================
