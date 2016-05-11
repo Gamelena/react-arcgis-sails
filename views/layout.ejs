@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%=typeof title == 'undefined' ? 'Gamelena App' : title%></title>
+<head>
+    <title><%= typeof title == 'undefined' ? 'Gamelena App' : title %></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!--
@@ -27,16 +27,23 @@
 
   -->
     <script src="/js/dependencies/sails.io.js"></script>
-      <script src="bower_components/react/react.js"></script>
-      <script src="bower_components/react/react-dom.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
-      <link rel="stylesheet" href="https://js.arcgis.com/3.16/esri/themes/calcite/dijit/calcite.css">
+    <script src="bower_components/react/react.js"></script>
+    <script src="bower_components/react/react-dom.js"></script>
+    <script src="bower_components/react-bootstrap/react-bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.16/esri/themes/calcite/dijit/calcite.css">
     <link rel="stylesheet" href="https://js.arcgis.com/3.16/esri/css/esri.css">
     <script src="https://js.arcgis.com/3.16/"></script>
-      <script>
-          var base_url = "<%=sails.getBaseUrl()%>";
-          dojo.registerModulePath("donnors", base_url + "/js/donnors");
-      </script>
+    <script>
+        var base_url = "<%=sails.getBaseUrl()%>";
+        dojo.registerModulePath("donnors", base_url + "/js/donnors");
+    </script>
     <!--
     Stylesheets and Preprocessors
     ==============================
@@ -61,52 +68,52 @@
     <link rel="stylesheet" href="/styles/importer.css">
     <!--STYLES END-->
     <style>
-      html,
-      body,
-      #map {
-        height: 100%;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #search {
-        display: block;
-        position: absolute;
-        z-index: 2;
-        top: 20px;
-        left: 74px;
-      }
+        html,
+        body,
+        #map {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #search {
+            display: block;
+            position: absolute;
+            z-index: 2;
+            top: 20px;
+            left: 74px;
+        }
     </style>
-  </head>
+</head>
 
-  <body class="calcite">
-    <%- body %>
+<body class="calcite" onorientationchange="orientationChanged()">
+<%- body %>
 
 
+<!--
+    Client-side Templates
+    ========================
 
-    <!--
-        Client-side Templates
-        ========================
+    HTML templates are important prerequisites of modern, rich client applications.
+    To work their magic, frameworks like Backbone, Angular, Ember, and Knockout require
+    that you load these templates client-side.
 
-        HTML templates are important prerequisites of modern, rich client applications.
-        To work their magic, frameworks like Backbone, Angular, Ember, and Knockout require
-        that you load these templates client-side.
+    By default, your Gruntfile is configured to automatically load and precompile
+    client-side JST templates in your `assets/templates` folder, then
+    include them here automatically (between TEMPLATES and TEMPLATES END).
 
-        By default, your Gruntfile is configured to automatically load and precompile
-        client-side JST templates in your `assets/templates` folder, then
-        include them here automatically (between TEMPLATES and TEMPLATES END).
+    To customize this behavior to fit your needs, just edit `tasks/pipeline.js`.
+    For example, here are a few things you could do:
 
-        To customize this behavior to fit your needs, just edit `tasks/pipeline.js`.
-        For example, here are a few things you could do:
+        + Import templates from other directories
+        + Use a different template engine (handlebars, jade, dust, etc.)
+        + Internationalize your client-side templates using a server-side
+          stringfile before they're served.
+-->
 
-            + Import templates from other directories
-            + Use a different template engine (handlebars, jade, dust, etc.)
-            + Internationalize your client-side templates using a server-side
-              stringfile before they're served.
-    -->
+<!--TEMPLATES-->
 
-    <!--TEMPLATES-->
-    
-    <!--TEMPLATES END-->
-  </body>
+<!--TEMPLATES END-->
+</body>
 </html>

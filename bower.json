@@ -20,7 +20,8 @@
     "tests"
   ],
   "dependencies": {
-    "react": "^15.0.2"
+    "react": "^15.0.2",
+    "react-bootstrap": "^0.29.4",
+    "bootstrap": "^3.3.6"
   }
-
 }
