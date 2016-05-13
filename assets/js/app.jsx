@@ -398,6 +398,11 @@ require([
         var Button = ReactBootstrap.Button;
 
         return React.createClass({
+            handleClick: function(evt) {
+                var td = evt.currentTarget;
+                td.innerHTML = response[td.dataset.field];
+                console.log(evt);
+            },
             render() {
                 return (
                     <div className="static-modal">
@@ -410,27 +415,27 @@ require([
                                     <tbody>
                                     <tr>
                                         <th>First Name</th>
-                                        <td>{response.first_name}</td>
+                                        <td onClick={this.handleClick} data-field="first_name">&lt;Click to Show&gt;</td>
                                     </tr>
                                     <tr>
                                         <th>Last Name</th>
-                                        <td>{response.last_name}</td>
+                                        <td onClick={this.handleClick} data-field="last_name">&lt;Click to Show&gt;</td>
                                     </tr>
                                     <tr>
                                         <th>Contact Number</th>
-                                        <td>{response.contact_number}</td>
+                                        <td onClick={this.handleClick} data-field="contact_number">&lt;Click to Show&gt;</td>
                                     </tr>
                                     <tr>
                                         <th>Email</th>
-                                        <td>{response.email}</td>
+                                        <td onClick={this.handleClick} data-field="email">&lt;Click to Show&gt;</td>
                                     </tr>
                                     <tr>
                                         <th>Address</th>
-                                        <td>{response.address}</td>
+                                        <td onClick={this.handleClick} data-field="address">&lt;Click to Show&gt;</td>
                                     </tr>
                                     <tr>
                                         <th>Blood Group</th>
-                                        <td>{response.blood_group}</td>
+                                        <td onClick={this.handleClick} data-field="blood_group">&lt;Click to Show&gt;</td>
                                     </tr>
                                     </tbody>
                                 </Table>
