@@ -21,6 +21,8 @@ require([
 
     var layers = [];
 
+    var showingDonor = false;
+
     var loadMarkers = function (map) {
         store.query().then(function(results){
             for (var i in layers) {
@@ -36,9 +38,14 @@ require([
 
                 var layer = new esri.layers.GraphicsLayer();
                 layer.data = results[i];
-                on(layer, "click", function (evt) {
-                    debugger;
-                    console.log(evt)
+                on (layer, "click", function (evt) {
+                    var mountNode = document.getElementById('donor-dialog');
+                    const ModalInstance = reactModalPrivateDataDonor(this.data);
+
+
+                    ReactDOM.render(<ModalInstance/>, mountNode);
+                    $('#donor-dialog').show();
+                    showingDonor = true;
                 });
 
                 layer.add(graphic);
@@ -93,19 +100,6 @@ require([
         }
 
 
-
-        var deleteDonor = function(id) {
-            if (confirm('Delete donor?')) {
-                store.remove(id);
-                alert('Deleted');
-                $('#donor-dialog').hide()
-            }
-        }
-
-
-
-
-
         //listen changes on iframe of process
         var iframe = document.getElementById('ifrmprocess');
         if (iframe.attachEvent) {//IE
@@ -117,9 +111,6 @@ require([
         function listenIframe(iframe)
         {
             var Alert = ReactBootstrap.Alert;
-            var Button = ReactBootstrap.Button;
-            var Modal = ReactBootstrap.Modal;
-            var Table = ReactBootstrap.Table;
 
             const myAlert = (
                 <Alert bsStyle="danger">
@@ -127,14 +118,9 @@ require([
                 </Alert>
             );
 
-
-
-
-
-
             var rawResponse = getIframeResponse(iframe);
             var response = json.parse(rawResponse);
-            debugger;
+
             if (response.first_name) {
                 console.log(response);
 
@@ -149,9 +135,6 @@ require([
                 ReactDOM.render(<ModalInstance/>, mountNode);
                 $('#donor-dialog').show();
 
-
-
-                console.log(response);
             } else {
                 if (response.status === 400 && response.message.match("already exists")) {
                     var message = 'This Email is already registered.';
@@ -168,54 +151,53 @@ require([
         }
 
         map.on("click", function (evt) {
-            var position = webMercatorUtils.webMercatorToGeographic(evt.mapPoint);
-            var mountNode = document.getElementById('donor-dialog');
+            if (!showingDonor) {
+                var position = webMercatorUtils.webMercatorToGeographic(evt.mapPoint);
+                var mountNode = document.getElementById('donor-dialog');
 
-            utils.updateLocation(position.x, position.y);
+                utils.updateLocation(position.x, position.y);
 
-            var Modal = ReactBootstrap.Modal;
-            var Button = ReactBootstrap.Button;
-
-
+                var Modal = ReactBootstrap.Modal;
+                var Button = ReactBootstrap.Button;
 
 
-            function submitDonor(e) {
-                if (!$('#form-donor').valid()) {
-                    return false;
-                } else {
-                    $('#form-donor').submit();
+                const FormInstance = reactFormDonor({
+                    coord_x: position.x,
+                    coord_y: position.y
+                });
 
+                const modalInstance = (
+                    <div className="static-modal">
+                        <Modal.Dialog>
+                            <Modal.Header>
+                                <Modal.Title>I wanna be donor</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <FormInstance />
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button onClick={function(){$('#donor-dialog').hide()}}>Close</Button>
+                                <Button onClick={submitDonor} bsStyle="primary">Save</Button>
+                            </Modal.Footer>
+                        </Modal.Dialog>
+                    </div>
+                );
+
+                function submitDonor(e) {
+                    if (!$('#form-donor').valid()) {
+                        return false;
+                    } else {
+                        $('#form-donor').submit();
+                    }
                 }
+
+                ReactDOM.render(modalInstance, mountNode);
+                $('#donor-dialog').show();
             }
-
-
-            const FormInstance = reactFormDonor({
-                coord_x : position.x,
-                coord_y : position.y
-            });
-
-            const modalInstance = (
-                <div className="static-modal">
-                    <Modal.Dialog>
-                        <Modal.Header>
-                            <Modal.Title>I wanna be donor</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <FormInstance />
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button onClick={function(){$('#donor-dialog').hide()}}>Close</Button>
-                            <Button onClick={submitDonor} bsStyle="primary">Save</Button>
-                        </Modal.Footer>
-                    </Modal.Dialog>
-                </div>
-            );
-
-            ReactDOM.render(modalInstance, mountNode);
-            $('#donor-dialog').show();
         });
     });
 
+    //Cross browser implementation for read iframe body response
     var getIframeResponse = function(iframe) {
         if (iframe.contentDocument.body.innerText)  {
             //chrome ie
@@ -335,7 +317,7 @@ require([
                                 </Table>
                             </Modal.Body>
                             <Modal.Footer>
-                                <Button onClick={function(){$('#donor-dialog').hide(); alert('Thank you!')}} bsStyle="success">Done</Button>
+                                <Button onClick={doneAdd} bsStyle="success">Done</Button>
                                 <Button onClick={function(){modifyDonor(response.id)}} bsStyle="primary">Modify</Button>
                                 <Button onClick={function(){deleteDonor(response.id)}} bsStyle="danger">Delete</Button>
                             </Modal.Footer>
@@ -345,6 +327,13 @@ require([
                 );
             }
         });
+    }
+
+    var doneAdd = function()
+    {
+        $('#donor-dialog').hide();
+        alert('Thank you!');
+        loadMarkers(map);
     }
 
     var reactModalDataDonor = function(response) {
@@ -403,12 +392,67 @@ require([
         });
     }
 
+    var reactModalPrivateDataDonor = function(response) {
+        var Modal = ReactBootstrap.Modal;
+        var Table = ReactBootstrap.Table;
+        var Button = ReactBootstrap.Button;
+
+        return React.createClass({
+            render() {
+                return (
+                    <div className="static-modal">
+                        <Modal.Dialog>
+                            <Modal.Header>
+                                <Modal.Title>Donor</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <Table striped bordered condensed hover>
+                                    <tbody>
+                                    <tr>
+                                        <th>First Name</th>
+                                        <td>{response.first_name}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Last Name</th>
+                                        <td>{response.last_name}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Contact Number</th>
+                                        <td>{response.contact_number}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>{response.email}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address</th>
+                                        <td>{response.address}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Blood Group</th>
+                                        <td>{response.blood_group}</td>
+                                    </tr>
+                                    </tbody>
+                                </Table>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button onClick={function(){$('#donor-dialog').hide(); showingDonor = false}}
+                                        bsStyle="success">Close</Button>
+                            </Modal.Footer>
+                        </Modal.Dialog>
+                    </div>
+                )
+            }
+        });
+    }
+
+
     var modifyDonor = function(id) {
-        var mountNode = document.getElementById('donor-dialog');
         store.get(id).then(function(item){
             var Modal = ReactBootstrap.Modal;
             var Button = ReactBootstrap.Button;
 
+            var mountNode = document.getElementById('donor-dialog');
             const FormInstance = reactFormDonor(item);
             const modalInstance = (
                 <div className="static-modal">
@@ -443,6 +487,14 @@ require([
             document.getElementById('form-donor').action = '/donors/' + id;
             $('#form-donor').submit();
             document.getElementById('form-donor').action = '/donors/';
+        }
+    }
+
+    var deleteDonor = function(id) {
+        if (confirm('Delete donor?')) {
+            store.remove(id);
+            alert('Deleted');
+            $('#donor-dialog').hide()
         }
     }
 
