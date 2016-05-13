@@ -22,7 +22,8 @@ module.exports = {
     },
     email: {
       type: 'string',
-      required: true
+      required: true,
+      unique: true
     },
     address: {
       type: 'string',
@@ -48,6 +49,21 @@ module.exports = {
     coord_y: {
       type: 'float',
       required: true
+    },
+    afterCreate: function(donor, next) {
+      Sails.io.sockets.emit('donors-change', donor);
+      console.log('sockect emit afterCreate');
+      next();
+    },
+    afterUpdate: function(donor, next) {
+      Sails.io.sockets.emit('donors-change', donor);
+      console.log('sockect emit afterUpdate');
+      next();
+    },
+    afterDestroy: function(donor, next) {
+      Sails.io.sockets.emit('donors-change', donor);
+      console.log('sockect emit afterDestroy');
+      next();
     }
   }
 };

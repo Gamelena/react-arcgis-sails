@@ -22,6 +22,8 @@
   "dependencies": {
     "react": "^15.0.2",
     "react-bootstrap": "^0.29.4",
-    "bootstrap": "^3.3.6"
+    "bootstrap": "^3.3.6",
+    "jquery-validation": "^1.15.0",
+    "dojo": "^1.11.1"
   }
 }

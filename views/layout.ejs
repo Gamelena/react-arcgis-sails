@@ -34,6 +34,8 @@
     <link rel="stylesheet" href="https://js.arcgis.com/3.16/esri/themes/calcite/dijit/calcite.css">
     <link rel="stylesheet" href="https://js.arcgis.com/3.16/esri/css/esri.css">
     <script src="/js/dependencies/sails.io.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
     <script>
         var base_url = "<%=sails.getBaseUrl()%>";
@@ -42,12 +44,12 @@
             async: true,
             cacheBust: '0.1.0',
             packages: [
-                { name: 'donnors', location: base_url + '/js/donnors' },
+                { name: 'donors', location: base_url + '/js/donors' },
                 { name: 'bower_components', location: base_url + '/bower_components' }
             ],
             aliases: [
-                ['react', 'bower_components/react/react.min'],
-                ['react-dom', 'bower_components/react/react-dom.min'],
+                ['react', 'bower_components/react/react'],
+                ['react-dom', 'bower_components/react/react-dom'],
                 ['react-bootstrap', 'bower_components/react-bootstrap/react-bootstrap.min']
             ],
             deps: ['dojo/domReady!'],
@@ -89,11 +91,25 @@
 
         #search {
             display: block;
-            position: absolute;
+            position: relative;
             z-index: 2;
-            top: 20px;
+            top: 54px;
             left: 74px;
         }
+
+        h3 {
+            text-align: center;
+            margin-bottom: 0px;
+        }
+
+        header small {
+            margin-left: 14px;
+        }
+
+        .error {
+            color: red;
+        }
+
     </style>
 </head>
 
@@ -125,5 +141,6 @@
 <!--TEMPLATES-->
 
 <!--TEMPLATES END-->
+
 </body>
 </html>

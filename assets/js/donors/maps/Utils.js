@@ -3,7 +3,7 @@ define(["dojo/_base/declare", "esri/geometry/Point", "esri/graphic", "esri/geome
 ], function (declare, Point, Graphic, Point,
     SimpleMarkerSymbol, SimpleLineSymbol, Color) {
 
-    return declare("donnors.maps.Utils", null, {
+    return declare("donors.maps.Utils", null, {
         map: null,
 
         graphic: null,
