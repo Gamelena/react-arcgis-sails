@@ -62,7 +62,7 @@ module.exports = {
     },
     afterDestroy: function(donor, next) {
       Sails.io.sockets.emit('donors-change', donor);
-      console.log('sockect emit afterDestroy');
+      console.log('sockect emit afterUpdate');
       next();
     }
   }

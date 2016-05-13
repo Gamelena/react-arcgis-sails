@@ -56,7 +56,7 @@ require([
     }
 
 
-    io.socket.on('connect', function() {
+    io.socket.on('donors-change', function() {
         debugger;
         loadMarkers(map);
     });
@@ -122,7 +122,6 @@ require([
             var response = json.parse(rawResponse);
 
             if (response.first_name) {
-                console.log(response);
 
                 var mountNode = document.getElementById('donor-dialog');
 
@@ -188,6 +187,7 @@ require([
                         return false;
                     } else {
                         $('#form-donor').submit();
+                        loadMarkers(map);
                     }
                 }
 
@@ -401,7 +401,6 @@ require([
             handleClick: function(evt) {
                 var td = evt.currentTarget;
                 td.innerHTML = response[td.dataset.field];
-                console.log(evt);
             },
             render() {
                 return (
@@ -499,7 +498,10 @@ require([
         if (confirm('Delete donor?')) {
             store.remove(id);
             alert('Deleted');
-            $('#donor-dialog').hide()
+            $('#donor-dialog').hide();
+            loadMarkers(map);
+            socket.emit('donors-change', id);
+
         }
     }
 

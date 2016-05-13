@@ -34,8 +34,14 @@
   "keywords": [],
   "scripts": {
     "debug": "node debug app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "mocha test/bootstrap.test.js test/integration/**/*.test.js"
   },
   "main": "app.js",
-  "author": "Rodrigo Riquelme <rodrigo.riquelme.e@gmail.com"
+  "author": "Rodrigo Riquelme <rodrigo.riquelme.e@gmail.com",
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "should": "^8.3.1",
+    "supertest": "^1.2.0"
+  }
 }

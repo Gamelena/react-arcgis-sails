@@ -13,7 +13,9 @@ module.exports = {
             if (err) return next(err);
             res.status(201);
             res.json(donor);
+            sails.sockets.broadcast('donors-change', donor);
         });
     }
 };
+
 
