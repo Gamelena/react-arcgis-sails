@@ -3,7 +3,8 @@ require([
     "esri/map", "esri/dijit/Search", "donors/maps/Utils", "esri/geometry/webMercatorUtils",
     "react", "react-dom", "react-bootstrap",  "dojo/json", "dojo/on", "dojo/store/JsonRest",
     "dojo/domReady!"
-], function (Map, Search, Utils, webMercatorUtils, React, ReactDOM, ReactBootstrap, json, on, JsonRest) {
+], function (Map, Search, Utils, webMercatorUtils,
+             React, ReactDOM, ReactBootstrap, json, on, JsonRest) {
 
     map = new Map("map", {
         center: [-56.049, 38.485],

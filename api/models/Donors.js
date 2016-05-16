@@ -51,17 +51,17 @@ module.exports = {
       required: true
     },
     afterCreate: function(donor, next) {
-      Sails.io.sockets.emit('donors-change', donor);
-      console.log('sockect emit afterCreate');
+      sails.io.sockets.emit('donors-change', donor);
+      console.log('socket emit afterCreate');
       next();
     },
     afterUpdate: function(donor, next) {
-      Sails.io.sockets.emit('donors-change', donor);
-      console.log('sockect emit afterUpdate');
+      sails.io.sockets.emit('donors-change', donor);
+      console.log('socket emit afterUpdate');
       next();
     },
     afterDestroy: function(donor, next) {
-      Sails.io.sockets.emit('donors-change', donor);
+      sails.io.sockets.emit('donors-change', donor);
       console.log('sockect emit afterUpdate');
       next();
     }

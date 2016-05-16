@@ -1,20 +1,48 @@
-var sails = require('sails');
+/**
+ * Created by leo on 3/26/15.
+ */
 
-before(function(done) {
+var Sails = require('sails');
+var Barrels = require('barrels');
+var port = 8012;
 
-    // Increase the Mocha timeout so that Sails has enough time to lift.
-    this.timeout(5000);
+require('should');
 
-    sails.lift({
-        // configuration for testing purposes
-    }, function(err, server) {
-        if (err) return done(err);
-        // here you can load fixtures, etc.
-        done(err, sails);
+// Global before hook
+before(function (done) {
+  this.timeout(25000);
+  // Lift Sails with test database
+  Sails.lift({
+    port:port,
+    globals:{
+      sails:true
+    },
+    log: {
+      level: 'error'
+    }
+  }, function(err, sails) {
+    if (err)
+      return done(err);
+    // Load fixtures
+    var barrels = new Barrels();
+
+    // Save original objects in `fixtures` variable
+    fixtures = barrels.data;
+
+    // Populate the DB
+    barrels.populate(function(err) {
+      done(err, sails);
     });
+  });
 });
 
-after(function(done) {
-    // here you can clear fixtures, etc.
-    sails.lower(done);
+// Global after hook
+after(function (done) {
+  sails.log.verbose(); // Skip a line before displaying Sails lowering logs
+  sails.lower(function() {
+    done();
+  });
 });
+
+
+
