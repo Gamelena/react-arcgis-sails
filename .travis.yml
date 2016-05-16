@@ -15,4 +15,6 @@ node_js:
 before_script:
     npm install -g sails
 script:
-    make test && make coverage
+    NODE_ENV=prod
+    make test
+    make coverage
