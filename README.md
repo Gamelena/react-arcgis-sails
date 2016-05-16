@@ -1,5 +1,7 @@
 # react-arcgis-sails
 
+[![Build Status](https://travis-ci.org/Gamelena/react-arcgis-sails.svg?branch=master)](https://travis-ci.org/Gamelena/react-arcgis-sails)
+
 Simple Blood Donation Management System
 =======================================
 
