@@ -2,7 +2,8 @@ language: node_js
 node_js:
   - "0.10"
 before_script:
-    npm install -g sails mocha
+    npm install
+    bower install
 script:
     make test
     make coverage
