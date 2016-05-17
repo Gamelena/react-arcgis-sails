@@ -29,13 +29,7 @@
     "sails": "~0.12.1",
     "sails-disk": "~0.10.9",
     "sails-generate-test": "0.0.4",
-    "sails-mongo": "^0.11.3",
-    "istanbul": "^0.3.6",
-    "grunt-mocha-istanbul": "^2.2.0",
-    "barrels": "^1.4.0",
-    "mocha": "*",
-    "should": "*",
-    "superagent": "^1.4.0"
+    "sails-mongo": "^0.11.3"
   },
   "name": "blood-donors",
   "private": true,
