@@ -1,10 +1,12 @@
 language: node_js
 node_js:
   - "0.10"
+services:
+  - mongodb
 before_script:
-    npm install -g sails mocha
-    npm install --dev
-    bower install
+  - npm install -g sails mocha
+  - npm install --dev
+  - bower install
 script:
-    make test
-    make coverage
+  - make test
+  - make coverage
