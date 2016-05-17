@@ -4,7 +4,7 @@ node_js:
 services:
   - mongodb
 before_script:
-  - npm install -g sails mocha
+  - npm install -g sails mocha bower
   - npm install --dev
   - bower install
 script:
