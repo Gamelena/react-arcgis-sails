@@ -3,7 +3,7 @@ node_js:
   - "0.10"
 services:
   - mongodb
-before_script:
+before_install:
   - npm install -g sails mocha bower grunt grunt-cli
   - npm install --dev
   - bower install
