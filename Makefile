@@ -4,7 +4,7 @@ MOCHA_REPORTER = spec
 NPM_REGISTRY="--registry=https://registry.npm.taobao.org/"
 
 install:
-	@npm install $(NPM_REGISTRY) --dev
+	@npm install $(NPM_REGISTRY)
 
 test:
 	NODE_ENV=unit_test ./node_modules/.bin/mocha \
