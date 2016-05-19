@@ -45,13 +45,11 @@
   "main": "app.js",
   "author": "Rodrigo Riquelme <rodrigo.riquelme.e@gmail.com",
   "devDependencies": {
-    "devDependencies": {
       "istanbul": "^0.3.6",
       "grunt-mocha-istanbul": "^2.2.0",
       "barrels": "^1.4.0",
       "mocha": "*",
       "should": "*",
       "superagent": "^1.4.0"
-    }
   }
 }
