@@ -48,8 +48,10 @@
       "istanbul": "^0.3.6",
       "grunt-mocha-istanbul": "^2.2.0",
       "barrels": "^1.4.0",
-      "mocha": "*",
-      "should": "*",
+      "mocha": "^2.4.5",
+      "should": "^8.3.1",
+      "supertest": "^1.2.0",
+      "supertest": "*",
       "superagent": "^1.4.0"
   }
 }
