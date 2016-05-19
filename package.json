@@ -39,7 +39,8 @@
   "scripts": {
     "debug": "node debug app.js",
     "start": "node app.js",
-    "test": "make test"
+    "test": "make test",
+    "coverage" : "make coverage"
   },
   "main": "app.js",
   "author": "Rodrigo Riquelme <rodrigo.riquelme.e@gmail.com",

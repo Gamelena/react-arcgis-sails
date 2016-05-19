@@ -8,4 +8,4 @@ before_install:
   - npm install --dev
   - bower install
 script:
-  - make test
+  - npm run test
