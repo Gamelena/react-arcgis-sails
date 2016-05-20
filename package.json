@@ -40,18 +40,18 @@
     "debug": "node debug app.js",
     "start": "node app.js",
     "test": "make test",
-    "coverage" : "make coverage"
+    "coverage": "make coverage"
   },
   "main": "app.js",
   "author": "Rodrigo Riquelme <rodrigo.riquelme.e@gmail.com",
   "devDependencies": {
-      "istanbul": "^0.3.6",
-      "grunt-mocha-istanbul": "^2.2.0",
-      "barrels": "^1.4.0",
-      "mocha": "^2.4.5",
-      "should": "^8.3.1",
-      "supertest": "^1.2.0",
-      "supertest": "*",
-      "superagent": "^1.4.0"
+    "istanbul": "^0.3.6",
+    "codecov": "^1.0.1",
+    "grunt-mocha-istanbul": "^2.2.0",
+    "barrels": "^1.4.0",
+    "mocha": "^2.4.5",
+    "should": "^8.3.1",
+    "supertest": "*",
+    "superagent": "^1.4.0"
   }
 }
