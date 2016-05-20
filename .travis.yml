@@ -7,4 +7,3 @@ services:
 script:
   - npm run test
   - npm run coverage
-  - ./node_modules/.bin/codecov
