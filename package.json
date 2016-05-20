@@ -45,13 +45,13 @@
   "main": "app.js",
   "author": "Rodrigo Riquelme <rodrigo.riquelme.e@gmail.com",
   "devDependencies": {
-    "istanbul": "^0.3.6",
-    "codecov": "^1.0.1",
-    "grunt-mocha-istanbul": "^2.2.0",
     "barrels": "^1.4.0",
+    "grunt-coveralls": "^1.0.1",
+    "grunt-mocha-istanbul": "^2.2.0",
+    "istanbul": "^0.3.6",
     "mocha": "^2.4.5",
     "should": "^8.3.1",
-    "supertest": "*",
-    "superagent": "^1.4.0"
+    "superagent": "^1.4.0",
+    "supertest": "*"
   }
 }
