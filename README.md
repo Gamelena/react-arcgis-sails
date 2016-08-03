@@ -7,7 +7,9 @@
 
 ##  Install
 npm install -g bower grunt grunt-cli sails forever
+
 npm install
+
 bower install
 
 ##  Run Dev (this step is necesary on first deploy on production to generate mongodb constraints)
